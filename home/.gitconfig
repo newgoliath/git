@@ -22,3 +22,4 @@
   ui = auto
 [merge]
   summary=true
+	tool = vimdiff
