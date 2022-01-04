@@ -2,7 +2,7 @@
 	name = Judd Maltin
 	email = judd@newgoliath.com
 [credential]
-	helper = cache
+	helper = osxkeychain
 [sendemail]
 	smtpEncryption = tls
 	smtpServer = smtp.gmail.com
@@ -10,8 +10,13 @@
 	smtpServerPort = 587
 [diff]
 	tool = vimdiff
+	guitool = meld
 [difftool]
 	prompt = false
+[difftool "meld"]
+trustExitCode = true
+cmd = open -W -a Meld --args \"$LOCAL\" \"$REMOTE\"
+#cmd = /Applications/Meld.app/Contents/MacOS/Meld \"$LOCAL\" \"$REMOTE\"
 [alias]
 	d = difftool
 [color]
@@ -23,5 +28,27 @@
 [merge]
   summary=true
 	tool = vimdiff
+	guitool = meld
 [push]
 	default = current
+[secrets]
+	providers = git secrets --aws-provider
+	patterns = (A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
+	patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
+	patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
+	allowed = AKIAIOSFODNN7EXAMPLE
+	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+[init]
+	templateDir = /Users/jmaltin/.git-templates/git-secrets
+[core]
+	excludesfile = /Users/jmaltin/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[pull]
+	rebase = true
+[commit]
+	template = /Users/jmaltin/.stCommitMsg
